@@ -39,157 +39,80 @@ class _HomeeState extends State<Homee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          FutureBuilder(
-            future: fetchData(),
-            builder: (context, AsyncSnapshot<List<Userss?>> snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return Column(
-                children: [
-                  ...List.generate(
-                    1,
-                    (index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    height: 50,
-                                    child: const Card(
-                                      child: Center(
-                                        child: Text('Name :'),
-                                      ),
-                                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+              FutureBuilder(
+                future: fetchData(),
+                builder: (context, AsyncSnapshot<List<Userss?>> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Column(
+                    children: [
+                      ...List.generate(
+                        newList.length,
+                        (index) {
+                          return Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('Name'),
+                                      Text('${snapshot.data![index]!.name}'),
+                                    ],
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    height: 50,
-                                    child: Card(
-                                      child: Center(
-                                        child: Text(
-                                            '${snapshot.data![index]!.name}'),
-                                      ),
-                                    ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('Email'),
+                                      Text('${snapshot.data![index]!.email}'),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('City '),
+                                      Text(
+                                          '${snapshot.data![index]!.address!.city}'),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('Company Name'),
+                                      Text(
+                                          '${snapshot.data![index]!.company!.name}'),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                ],
+                              ),
                             ),
-                            const SizedBox(height: 8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    height: 50,
-                                    child: const Card(
-                                      child: Center(
-                                        child: Text('Email Address :'),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    height: 50,
-                                    child: Card(
-                                      child: Center(
-                                        child: Text(
-                                            '${snapshot.data![index]!.email}'),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    height: 50,
-                                    child: const Card(
-                                      child: Center(
-                                        child: Text('Address :'),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    height: 50,
-                                    child: Card(
-                                      child: Center(
-                                        child: Text(
-                                            '${snapshot.data![index]!.address!.city} ' +
-                                                '${snapshot.data![index]!.address!.street}'),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    height: 50,
-                                    child: const Card(
-                                      child: Center(
-                                        child: Text('Company Name :'),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    height: 50,
-                                    child: Card(
-                                      child: Center(
-                                        child: Text(
-                                            '${snapshot.data![index]!.company!.name}'),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  )
-                ],
-              );
-            },
-          )
-        ],
+                          );
+                        },
+                      )
+                    ],
+                  );
+                },
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
